@@ -37,11 +37,11 @@ export class HomeComponent {
   }
   dataOrderList: any[] = []
   dataIssueList: any[] = []
-  dataSelectNhanVien : any = []
+  dataSelectNhanVien: any = []
   dataSelectHtth = htth;
   dataSelectLvtsd = loaivtsd;
   dataSelectIlart = ilart;
-  dataSelectWorkcenter : any[] = [];
+  dataSelectWorkcenter: any[] = [];
 
   detailOrder = {
     gsorder: {
@@ -118,7 +118,7 @@ export class HomeComponent {
   tplnr = JSON.parse(this.tplnrString);
   plantString: any = localStorage.getItem('__activeIngpr');
   plant = JSON.parse(this.plantString);
-  __activeRole : any = localStorage.getItem('__activeRole')
+  __activeRole: any = localStorage.getItem('__activeRole')
   role = JSON.parse(this.__activeRole)
   ngOnInit() {
     this.getDataDashboard(this.iwerk, this.tplnr, this.plant)
@@ -130,7 +130,6 @@ export class HomeComponent {
       .subscribe({
         next: (response: any) => {
           this.dataDashboard = response
-          console.log(response)
         },
         error: (error) => {
           console.error('Fail load:', error)
@@ -149,7 +148,6 @@ export class HomeComponent {
       .subscribe({
         next: (response: any) => {
           this.dataOrderList = response.gtorder.item
-          console.log(this.dataOrderList)
         },
         error: (error) => {
           console.error('Fail load:', error)
@@ -168,7 +166,6 @@ export class HomeComponent {
       .subscribe({
         next: (response: any) => {
           this.dataOrderList = response
-          console.log(this.dataOrderList)
         },
         error: (error) => {
           console.error('Fail load:', error)
@@ -182,20 +179,18 @@ export class HomeComponent {
         next: (response: any) => {
           this.detailOrder = response
           this.titleDetail = `THÔNG TIN CHI TIẾT LỆNH SỬA CHỮA (${response.gsorder.aufnr} - ${response.gsorder.ktext})`
-          console.log(response)
         },
         error: (error) => {
           console.error('Fail load:', error)
         },
       })
-      this.http.get(environment.baseApiUrl + `/get_nhanvien/${this.role}`)
+    this.http.get(environment.baseApiUrl + `/get_nhanvien/${this.role}`)
       .subscribe({
         next: (response: any) => {
-        this.dataSelectNhanVien = response.gtNv.item;
-        this.dataSelectNhanVien.forEach((item: { staffTxt: string; staff: any; }) => {
-          item.staffTxt = `${item.staff} - ${item.staffTxt}`
-        })
-        console.log(this.dataSelectNhanVien)
+          this.dataSelectNhanVien = response.gtNv.item;
+          this.dataSelectNhanVien.forEach((item: { staffTxt: string; staff: any; }) => {
+            item.staffTxt = `${item.staff} - ${item.staffTxt}`
+          })
         },
         error: (error) => {
           console.error('Fail load:', error)
@@ -219,5 +214,7 @@ export class HomeComponent {
   }
   closeDetailOrder() {
     this.visibleDetailOrder = false
+  }
+  saveInfo() {
   }
 }
