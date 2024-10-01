@@ -1,0 +1,114 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="#" target="_blank">
+        <img *ngIf="!isCollapsed" src="assets/img/petrolimex.png" class="w-full" alt="logo" style="width: 80%;"/>
+        <img *ngIf="isCollapsed" src="assets/img/petrolimex-icon.png" class="w-full img-isCollapsed" alt="logo" />
+      </a>
+    </div>
+    <ul nz-menu nzMode="inline">
+      <li
+          nz-menu-item
+          nzTooltipPlacement="right"
+          nzSelected (click)="navigateTo('/')"
+        >
+          <span nz-icon nzType="home"></span>
+          <span>Trang chủ</span>
+        </li>
+      <li nz-submenu nzTitle="Quản lý danh mục" nzIcon="unordered-list">
+        <ul *ngFor="let item of menuType1">
+          <li (click)="navigateTo(item.key)" nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Quản lý sự cố" nzIcon="warning">
+        <ul *ngFor="let item of menuType2">
+          <li nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="CHXD tự thực hiện" nzIcon="interaction">
+        <ul *ngFor="let item of menuType8">
+          <li nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Quản lý kế hoạch" nzIcon="snippets">
+        <ul *ngFor="let item of menuType3">
+          <li nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Xác nhận kết quả thực hiện" nzIcon="check-circle">
+        <ul *ngFor="let item of menuType7">
+          <li nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Quản lý chỉ số hoạt động" nzIcon="stock">
+        <ul *ngFor="let item of menuType4">
+          <li nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Báo cáo" nzIcon="file">
+        <ul *ngFor="let item of menuType5">
+          <li nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Quản trị hệ thống" nzIcon="setting">
+        <ul *ngFor="let item of menuType6">
+          <li (click)="navigateTo(item.key)" nz-menu-item>{{item.name}}</li>
+        </ul>
+      </li>
+    </ul>
+
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header flex justify-between items-center">
+        <div class="header-trigger flex items-center gap-[24px]">
+          <div (click)="toggleSidebar()">
+            <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+          </div>
+          <div *ngIf="screenWidth >= 576">
+            <nz-breadcrumb>
+              <nz-breadcrumb-item><a routerLink="/"><span nz-icon nzType="home"></span></a></nz-breadcrumb-item>
+              <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs">
+                <a [routerLink]="breadcrumb?.path">{{ breadcrumb?.name }}</a>
+              </nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+        </div>
+        <div class="header-trigger flex items-center gap-[24px]">
+          <div class="text-change">Công ty</div>
+          <nz-select nzShowSearch nzAllowClear [ngModel]="selectedRole" nzPlaceHolder="Tên công ty" style="width: 240px;"
+            (ngModelChange)="roleChange($event)">
+            <nz-option *ngFor="let item of roles" [nzValue]="item.bukrs" [nzLabel]="item.butxt"></nz-option>
+          </nz-select>
+          <div class="text-change">Bộ phận</div>
+          <nz-select nzShowSearch nzAllowClear [ngModel]="selectedPlant" nzPlaceHolder="Tên bộ phận" style="width: 180px;"
+            (ngModelChange)="plantChange($event)">
+            <nz-option *ngFor="let item of plants" [nzValue]="item.ingpr" [nzLabel]="item.ingprTxt"></nz-option>
+          </nz-select>
+          <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="topLeft" style="border: unset; box-shadow: none;">
+            <nz-avatar nzIcon="user"></nz-avatar><span class="ml-[7px] text-base">{{ userName }}</span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu" class="w-[240px]">
+            <ul nz-menu class="w-[200px]">
+              <li nz-menu-item class="p-[5px]">
+                <span nz-icon nzType="lock" nzTheme="outline"></span><span class="ml-[10px]" (click)="changePass()">Đổi
+                  mật khẩu</span>
+              </li>
+              <li nz-menu-item class="p-[5px] border-t border-solid border-custom-gray" (click)="logout()">
+                <span nz-icon nzType="logout" nzTheme="outline"></span><span class="ml-[10px]">Đăng xuất</span>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <nz-spin [nzSpinning]="loading">
+          <router-outlet></router-outlet>
+        </nz-spin>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,66 @@
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="Lịch sử thay đổi sự cố" nzSubtitle="Danh sách lịch sử thay đổi sự cố"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <nz-date-picker [(ngModel)]="filter.fromDate" [nzPlaceHolder]="'Từ ngày'" [nzFormat]="'dd/MM/yyyy'" style="margin-left: 6px;"></nz-date-picker>
+                        <nz-date-picker [(ngModel)]="filter.toDate" [nzPlaceHolder]="'Đến ngày'" [nzFormat]="'dd/MM/yyyy'" style="margin-left: 6px;"></nz-date-picker>
+                        <app-input-clear placeholder="Tên tài khoản" [(value)]="filter.userName" style="margin-left: 6px;"></app-input-clear>
+                        <app-input-clear placeholder="Số chứng từ" [(value)]="filter.issueNumber" style="margin-left: 6px;"></app-input-clear>
+
+                        <button  class="flex !items-center gray-btn" nzType="default" (click)="getAllData()"
+                            nz-button nzType="default" style="margin-left: 6px;">
+                            <span nz-icon nzType="search"></span>
+                        </button>
+                        <button class="flex !items-center gray-btn" nzType="default" (click)="reset()"
+                            nz-button nzType="default" style="margin-left: 6px;">
+                            <span nz-icon nzType="redo"></span>
+                        </button>
+                    </nz-space>
+                    <!-- <button
+              (click)="exportExcel()"
+              class="!flex !items-center"
+              nz-button
+              nzType="primary"
+              nzDanger
+              [appPermission]="CURRENCY_RIGHTS.EXCEL"
+            >
+            <span nz-icon nzType="file-excel" ></span>Tải Excel
+            
+            </button> -->
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow">
+        <nz-table>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Người thực hiện</th>
+                    <th>Thời gian thực hiện</th>
+                    <th>Loại hành động</th>
+                    <th>URL</th>
+                    <th>IP</th>
+                    <th>Trạng thái</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                <tr *ngFor="let d of dataSearch; let i = index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ d.username }}</td>
+                    <td>{{ d.createdAt | date:'dd/MM/yyyy' }}</td>
+                    <td>{{d.request.uriMapping }}</td>
+                    <td>{{d.request.uri }}</td>
+                    <td>{{d.request.ip }}</td>
+                    <td>{{d.status }}</td>
+                    <td>{{d.response }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

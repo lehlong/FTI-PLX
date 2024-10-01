@@ -1,0 +1,56 @@
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="Khu vực chức năng" nzSubtitle="Danh sách khu vực chức năng"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <app-input-clear placeholder="Tìm kiếm" (enterEvent)="search()"
+                        [(value)]="keyWord"
+                            ></app-input-clear>
+                        <button  class="flex !items-center !border-l-0 gray-btn" nzType="default" (click)="search()"
+                            nz-button nzType="default">
+                            <span nz-icon nzType="search"></span>
+                        </button>
+                        <button class="flex !items-center !border-l-0 gray-btn" nzType="default" (click)="reset()"
+                            nz-button nzType="default">
+                            <span nz-icon nzType="redo"></span>
+                        </button>
+                    </nz-space>
+                    <!-- <button
+              (click)="exportExcel()"
+              class="!flex !items-center"
+              nz-button
+              nzType="primary"
+              nzDanger
+              [appPermission]="CURRENCY_RIGHTS.EXCEL"
+            >
+            <span nz-icon nzType="file-excel" ></span>Tải Excel
+            
+            </button> -->
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow">
+        <nz-table>
+            <thead>
+                <tr>
+                    <th>Mã khu vực chức năng</th>
+                    <th>Tên khu vực chức năng</th>
+                    <th>Ngày sử dụng</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                <tr *ngFor="let d of dataSearch">
+                    <td>{{ d.funcloc }}</td>
+                    <td>{{ d.descript }}</td>
+                    <td>{{ d.startupdate }}</td>
+                    <td>{{d.txt30 }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

@@ -1,0 +1,386 @@
+<div class="content">
+    <nz-divider nzOrientation="left" nzText="THỐNG KÊ BẢO TRÌ BẢO DƯỠNG"></nz-divider>
+    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="8">
+            <div class="inner-box inner-box-2" style="background-color: #32c5d2;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="file" nzTheme="outline" class="icon-dashboard"></span>
+                    </div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus2.countTh}}</div>
+                        <div class="text-dashboard-des">Tổng số lệnh trễ hạn</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="8">
+            <div class="inner-box inner-box-2" style="background: #c49f47;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="file-sync" nzTheme="outline"
+                            class="icon-dashboard"></span></div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus2.countDth}}</div>
+                        <div class="text-dashboard-des">Tổng số lệnh đang thực hiện</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="8">
+            <div class="inner-box inner-box-2" style="background-color: #32c5d2;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="file-text" nzTheme="outline"
+                            class="icon-dashboard"></span></div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus2.countLm}}</div>
+                        <div class="text-dashboard-des">Số lệnh phát sinh mới</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nz-divider nzOrientation="left" nzText="THỐNG KÊ SỰ CỐ"></nz-divider>
+    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="6">
+            <div class="inner-box inner-box-2" style="background-color: #32c5d2;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="align-left" nzTheme="outline"
+                            class="icon-dashboard"></span></div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus1.count1Sc}}</div>
+                        <div class="text-dashboard-des">Tổng số sự cố phát sinh</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="6">
+            <div class="inner-box inner-box-2" style="background: #c49f47;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="bar-chart" nzTheme="outline"
+                            class="icon-dashboard"></span></div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus1.countTh}}</div>
+                        <div class="text-dashboard-des">Tổng số lệnh trễ hạn</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="6">
+            <div class="inner-box inner-box-2" style="background-color: #32c5d2;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="apartment" nzTheme="outline"
+                            class="icon-dashboard"></span></div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus1.countDth}}</div>
+                        <div class="text-dashboard-des">Tổng số lệnh đang thực hiện</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col class="gutter-row gutter-row-2" [nzSpan]="6">
+            <div class="inner-box inner-box-2" style="background-color: #32c5d2;">
+                <div nz-row nzJustify="start">
+                    <div nz-col nzSpan="4"><span nz-icon nzType="database" nzTheme="outline"
+                            class="icon-dashboard"></span></div>
+                    <div nz-col nzSpan="20" class="text-dashboard">
+                        <div class="text-dashboard-sum">{{dataDashboard.estatus1.countLm}}</div>
+                        <div class="text-dashboard-des">Tổng số lệnh mới</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nz-divider nzOrientation="left" nzText="DANH SÁCH LỆNH BẢO DƯỠNG THEO KẾ HOẠCH"></nz-divider>
+    <nz-table #OrderListTable nzShowPagination nzShowSizeChanger
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="dataOrderList"
+        [nzTotal]="dataOrderList.length" [nzPageIndex]="1" [nzPageSize]="10">
+        <thead>
+            <tr>
+                <th>Số lệnh</th>
+                <th>Nội dung bảo dưỡng</th>
+                <th>Ngày thực hiện</th>
+                <th>Bộ phận thực hiện</th>
+                <th>Khu vực phát sinh</th>
+                <th>Tên thiết bị</th>
+                <th>Trạng thái</th>
+                <th>Mã kế hoạch</th>
+                <th>Tên kế hoạch</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (data of OrderListTable.data; track data) {
+            <tr (click)="getDetailOrder(data.aufnr)">
+                <td>{{data.aufnr}}</td>
+                <td>{{data.ktext}}</td>
+                <td>{{data.gltrs | date:'dd/MM/yyyy'}}</td>
+                <td>{{data.gewrktxt}}</td>
+                <td>{{data.tplnrtxt}}</td>
+                <td>{{data.equtxt}}</td>
+                <td>{{data.zzsysstatus === 'REL' ? 'Đang thực hiện' : data.zzsysstatus == 'CRTD' ? 'Khởi tạo' : 'Hoàn
+                    thành'}}</td>
+                <td>{{data.warpl}}</td>
+                <td>{{data.warpltxt}}</td>
+            </tr>
+            }
+        </tbody>
+    </nz-table>
+    <nz-divider nzOrientation="left" nzText="DANH SÁCH SỰ CỐ PHÁT SINH"></nz-divider>
+    <nz-table nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>
+            <tr>
+                <th>Mã yêu cầu</th>
+                <th>Nội dung sửa chữa/sự cố</th>
+                <th>Ngày ghi nhận</th>
+                <th>Bộ phận thực hiện</th>
+                <th>Khu vực phát sinh</th>
+                <th>Tên thiết bị</th>
+                <th>Mức độ ưu tiên</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<!-- Detail Order -->
+<nz-drawer [nzWidth]="'80%'" [nzVisible]="visibleDetailOrder" nzPlacement="right" [nzTitle]="titleDetail"
+    [nzExtra]="extra" (nzOnClose)="closeDetailOrder()">
+    <ng-container *nzDrawerContent>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Mã order cha (Superior Order)</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.maufnr"/>
+                </div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box"></div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                </div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Mã yêu cầu</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.qmnum"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Nội dung yêu cầu</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true"  [(ngModel)]="detailOrder.gsorder.ktext"/>
+                </div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Mã lệnh</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true"  [(ngModel)]="detailOrder.gsorder.aufnr"/>
+                </div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Nội dung thực hiện</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true"  [(ngModel)]="detailOrder.gsorder.ktext"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Mã thiết bị</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true"  [(ngModel)]="detailOrder.gsorder.equnr"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Tên thiết bị</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.equtxt"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Khu vực chức năng</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.tplnr"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Tên khu vực chức năng</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.tplnrtxt"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Mã tài sản</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.anlnr"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Tên tài sản</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.anlhtxt"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Ngày kế hoạch bắt đầu</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.gstrp"></nz-date-picker>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Ngày kế hoạch kết thúc</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.gltrp"></nz-date-picker>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Ngày thực tế bắt đầu</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.gstri" nzDisabled></nz-date-picker>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Ngày thực tế kết thúc</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.getri" nzDisabled></nz-date-picker>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Trạng thái lệnh</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Hình thức thực hiện</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Hình thức thực hiện" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.htth">
+                        <nz-option *ngFor="let item of dataSelectHtth" [nzValue]="item.value" [nzLabel]="item.name"></nz-option>
+                      </nz-select>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Người thực hiện</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Người thực hiện" style="width: 100%;">
+                        <nz-option *ngFor="let item of dataSelectNhanVien" [nzValue]="item.staff" [nzLabel]="item.staffTxt"></nz-option>
+                      </nz-select>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Đơn vị thực hiện (work center)</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Đơn vị quản lý (Planner group)</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.ingrptxt"/>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Đơn vị sử dụng</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <input nz-input [disabled]="true" [(ngModel)]="detailOrder.gsorder.depname" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Loại vật tư, chi phí sử dụng</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Loại vật tư, chi phí sử dụng" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.loaivtsd">
+                        <nz-option *ngFor="let item of dataSelectLvtsd" [nzValue]="item.value" [nzLabel]="item.name"></nz-option>
+                      </nz-select>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row space-form" [nzSpan]="4">
+                <div class="inner-box">Maintenance activity type</div>
+            </div>
+            <div nz-col class="gutter-row space-form" [nzSpan]="8">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Loại vật tư, chi phí sử dụng" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.ilart">
+                        <nz-option *ngFor="let item of dataSelectIlart" [nzValue]="item.value" [nzLabel]="item.name"></nz-option>
+                      </nz-select>
+                </div>
+            </div>
+            
+        </div>
+    </ng-container>
+</nz-drawer>
+<ng-template #extra>
+    <button nz-button nzType="primary" (click)="close()" style="margin-right: 12px;">Tạo Suborder</button>
+    <button nz-button nzType="default" (click)="closeDetailOrder()">Đóng</button>
+    &nbsp;
+</ng-template>
