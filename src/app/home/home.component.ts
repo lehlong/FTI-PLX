@@ -41,6 +41,7 @@ export class HomeComponent {
   dataSelectHtth = htth;
   dataSelectLvtsd = loaivtsd;
   dataSelectIlart = ilart;
+  dataSelectWorkcenter : any[] = [];
 
   detailOrder = {
     gsorder: {
@@ -117,6 +118,8 @@ export class HomeComponent {
   tplnr = JSON.parse(this.tplnrString);
   plantString: any = localStorage.getItem('__activeIngpr');
   plant = JSON.parse(this.plantString);
+  __activeRole : any = localStorage.getItem('__activeRole')
+  role = JSON.parse(this.__activeRole)
   ngOnInit() {
     this.getDataDashboard(this.iwerk, this.tplnr, this.plant)
     this.getDataOrderList();
@@ -185,9 +188,7 @@ export class HomeComponent {
           console.error('Fail load:', error)
         },
       })
-      var __activeRole : any = localStorage.getItem('__activeRole')
-      var role = JSON.parse(__activeRole)
-      this.http.get(environment.baseApiUrl + `/get_nhanvien/${role}`)
+      this.http.get(environment.baseApiUrl + `/get_nhanvien/${this.role}`)
       .subscribe({
         next: (response: any) => {
         this.dataSelectNhanVien = response.gtNv.item;
@@ -200,6 +201,20 @@ export class HomeComponent {
           console.error('Fail load:', error)
         },
       })
+
+    this.http.post(environment.baseApiUrl + `/entity?table_name=work_center&&wc=&&adrnr=&&werks=${this.iwerk}`, {})
+      .subscribe({
+        next: (response: any) => {
+          this.dataSelectWorkcenter = response.gtWorkcenter.item
+          this.dataSelectWorkcenter.forEach((item) => {
+            item.ktext = `${item.arbpl} - ${item.ktext}`
+          })
+        },
+        error: (error) => {
+          console.error('Fail load:', error)
+        },
+      });
+
 
   }
   closeDetailOrder() {

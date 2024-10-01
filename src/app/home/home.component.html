@@ -283,7 +283,8 @@
             </div>
             <div nz-col class="gutter-row space-form" [nzSpan]="8">
                 <div class="inner-box">
-                    <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.gstri" nzDisabled></nz-date-picker>
+                    <!-- <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.gstri" nzDisabled></nz-date-picker> -->
+                    <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" nzDisabled></nz-date-picker>
                 </div>
             </div>
 
@@ -292,7 +293,8 @@
             </div>
             <div nz-col class="gutter-row space-form" [nzSpan]="8">
                 <div class="inner-box">
-                    <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.getri" nzDisabled></nz-date-picker>
+                    <!-- <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.getri" nzDisabled></nz-date-picker> -->
+                    <nz-date-picker [nzPlaceHolder]="'...'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;" nzDisabled></nz-date-picker>
                 </div>
             </div>
 
@@ -332,7 +334,9 @@
             </div>
             <div nz-col class="gutter-row space-form" [nzSpan]="8">
                 <div class="inner-box">
-                    <input nz-input [disabled]="true" />
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Hình thức thực hiện" style="width: 100%;" [(ngModel)]="detailOrder.gsorder.gewrk">
+                        <nz-option *ngFor="let item of dataSelectWorkcenter" [nzValue]="item.arbpl" [nzLabel]="item.ktext"></nz-option>
+                      </nz-select>
                 </div>
             </div>
 
@@ -380,7 +384,7 @@
     </ng-container>
 </nz-drawer>
 <ng-template #extra>
-    <button nz-button nzType="primary" (click)="close()" style="margin-right: 12px;">Tạo Suborder</button>
+    <button nz-button nzType="primary" style="margin-right: 12px;">Tạo Suborder</button>
     <button nz-button nzType="default" (click)="closeDetailOrder()">Đóng</button>
     &nbsp;
 </ng-template>
