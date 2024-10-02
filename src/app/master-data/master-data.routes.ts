@@ -16,7 +16,7 @@ import { ListAuditEditComponent } from './list-audit/list-audit-edit/list-audit-
 import { TemplateListTablesPreviewComponent } from './template-list-tables-preview/template-list-tables-preview.component'
 import { PreparingTemplateListTableComponent } from './preparing-template-list-table/preparing-template-list-table.component'
 import { AuditPeriodListTablesComponent } from './audit-period-list-tables/audit-period-list-tables.component'
-import { ReportComponent } from '../report/report/report.component'
+
 import { FunctionComponent } from './function/function.component'
 export const masterDataRoutes: Routes = [
   { path: 'Function', component: FunctionComponent },
@@ -45,7 +45,5 @@ export const masterDataRoutes: Routes = [
     path: 'audit-period-list-tables',
     component: AuditPeriodListTablesComponent,
   },
-  {
-    path: 'report', component: ReportComponent,
-  }
+ 
 ]

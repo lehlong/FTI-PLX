@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
-import { ReportComponent } from './report/report.component';
-import { TemplateReportComponent } from './templates-report/template-report/template-report.component';
+import { Ztcpm001Component } from './ztcpm001/ztcpm001.component';
+
 
 export const reportRoutes: Routes = [
-    { path: 'report', component: ReportComponent },
-    { path: 'template-report', component: TemplateReportComponent }
+    {
+        path: 'ztc_pm001',
+        component: Ztcpm001Component,
+    },
 ];
