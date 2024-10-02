@@ -1,0 +1,99 @@
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="BẢNG LIỆT KÊ KHU VỰC CHỨC NĂNG" nzSubtitle="Xuất báo cáo"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <button nz-button nzType="primary" style="margin-right: 12px;" (click)="exportData('1')">
+                            <span nz-icon nzType="download"></span>
+                            XUẤT PDF
+                        </button>
+                        <button nz-button nzType="primary" (click)="exportData('2')">
+                            <span nz-icon nzType="download"></span>
+                            XUẤT EXCEL
+                        </button>
+                    </nz-space>
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow" style="padding: 0px 24px;">
+        <nz-divider nzOrientation="left" nzText="CHỌN THAM SỐ BÁO CÁO"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="model.werks" [disabled]="true"/>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Plant section
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn Plant section" style="width: 100%;"
+                        [(ngModel)]="model.beber">
+                        <nz-option *ngFor="let item of lstSelectPlantSection" [nzValue]="item.value"
+                            [nzLabel]="item.name"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    ABC Indicator
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn ABC Indicator" style="width: 100%;"
+                        [(ngModel)]="model.abckz">
+                        <nz-option *ngFor="let item of lstSelectIndicator" [nzValue]="item.value"
+                            [nzLabel]="item.name"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Object class
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input placeholder="Object class" [(ngModel)]="model.class"/>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Khu vực chức năng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn khu vực chức năng" style="width: 100%;"
+                        [(ngModel)]="model.tplnr">
+                        <nz-option *ngFor="let item of lstSelectFunclocList" [nzValue]="item.funcloc"
+                            [nzLabel]="item.descript"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Ngày hiệu lực
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;"
+                        [(ngModel)]="model.fdate"></nz-date-picker>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Ztcpm001Component } from './ztcpm001.component';
+import { PM003DComponent } from './pm003-d.component';
 
-describe('Ztcpm001Component', () => {
-  let component: Ztcpm001Component;
-  let fixture: ComponentFixture<Ztcpm001Component>;
+describe('PM003DComponent', () => {
+  let component: PM003DComponent;
+  let fixture: ComponentFixture<PM003DComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Ztcpm001Component]
+      imports: [PM003DComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(Ztcpm001Component);
+    fixture = TestBed.createComponent(PM003DComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

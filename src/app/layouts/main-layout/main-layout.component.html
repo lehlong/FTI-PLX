@@ -48,7 +48,7 @@
       </li>
       <li nz-submenu nzTitle="Báo cáo" nzIcon="file">
         <ul *ngFor="let item of menuType5">
-          <li nz-menu-item>{{item.name}}</li>
+          <li (click)="navigateTo(item.key)" nz-menu-item>{{item.name}}</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Quản trị hệ thống" nzIcon="setting">
