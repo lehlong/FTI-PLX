@@ -70,3 +70,9 @@ export const eqtyp = [
     { name: 'E - Thiết bị bể xuất', value: 'E', },
     { name: 'M - Thiết bị cột bơm', value: 'M', },
 ];
+
+export const plantype = [
+    { name: 'KD - Kế hoạch kiểm định/hiệu chuẩn', value: 'KD', },
+    { name: 'NO - Kế hoạch kiểm tra', value: 'NO', },
+    { name: 'PM - Kế hoạch sửa chữa, BYBD', value: 'PM', },
+];
