@@ -1,0 +1,45 @@
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="DANH SÁCH SỰ CỐ PHÊ DUYỆT"
+            class="site-page-header">
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow">
+        <nz-table #datatable nzShowPagination nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+            [nzData]="dtable" [nzTotal]="dtable.length" [nzPageIndex]="1" [nzPageSize]="10">
+            <thead>
+                <tr>
+                    <th>Số đề nghị</th>
+                    <th>Loại công việc</th>
+                    <th>Nội dung đề nghị</th>
+                    <th>Ngày chứng từ</th>
+                    <th>Bộ phận thực hiện</th>
+                    <th>Khu vực phát sinh</th>
+                    <th>Tên thiết bị</th>
+                    <th>Mức độ ưu tiên</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (d of datatable.data; track d) {
+                <tr>
+                    <td>{{ d.qmnum }}</td>
+                    <td>{{ d.qmarttxt }}</td>
+                    <td>{{ d.qmtxt }}</td>
+                    <td>{{d.qmdat | date : 'dd/MM/yyyy'}}</td>
+                    <td>{{d.arbpltxt }}</td>
+                    <td>{{d.tplnrtxt }}</td>
+                    <td>{{d.equnrtxt }}</td>
+                    <td>{{d.prioktxt }}</td>
+                    <td><nz-tag [nzColor]="'green'">Chờ duyệt</nz-tag></td>
+                    <td>
+                        <button nz-button nzType="primary" [nzSize]="'small'" style="margin-right: 6px;">PHÊ DUYỆT</button>
+                        <button nz-button nzType="primary" nzDanger [nzSize]="'small'">TỪ CHỐI</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </nz-table>
+    </div>
+</div>

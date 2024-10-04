@@ -1,1 +1,37 @@
-<p>pm004-b works!</p>
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="PHIẾU ĐỀ NGHỊ SỬA CHỮA (KẾT QUẢ)" nzSubtitle="Xuất báo cáo"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <button nz-button nzType="primary" (click)="exportData()">
+                            <span nz-icon nzType="download"></span>
+                            XUẤT BÁO CÁO
+                        </button>
+                    </nz-space>
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow" style="padding: 0px 24px;">
+        <nz-divider nzOrientation="left" nzText="CHỌN THAM SỐ BÁO CÁO"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Phiếu đề nghị sửa chữa
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="model.fqmnum" placeholder="Notification number"/>
+                </div>
+            </div> 
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="model.tqmnum" placeholder="Notification number"/>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

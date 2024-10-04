@@ -1,0 +1,413 @@
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="DANH SÁCH THIẾT BỊ/ TÀI SẢN CSVCKT"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <button nz-button nzType="default" (click)="searchData()" style="margin-right: 12px;">
+                            <span nz-icon nzType="search"></span>
+                            TÌM KIẾM
+                        </button>
+                        <button nz-button nzType="primary" (click)="exportData()">
+                            <span nz-icon nzType="download"></span>
+                            XUẤT FILE EXCEL
+                        </button>
+                    </nz-space>
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow">
+        <nz-divider nzText="CHỌN THAM SỐ" nzOrientation="left"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                   Khu vực chức năng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn khu vực chức năng" style="width: 100%;"
+                        [(ngModel)]="model.funcloc">
+                        <nz-option *ngFor="let item of lstSelectFunclocList" [nzValue]="item.funcloc"
+                            [nzLabel]="item.descript"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Nhóm thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn nhóm thiết bị" style="width: 100%;"
+                        [(ngModel)]="model.object_type">
+                        <nz-option *ngFor="let item of lstSelectObjectType" [nzValue]="item.eqart"
+                            [nzLabel]="item.eartx"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị quản lý
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn đơn vị quản lý" style="width: 100%;"
+                        [(ngModel)]="model.ingpr">
+                        <nz-option *ngFor="let item of lstSelectPlaner" [nzValue]="item.ingrp"
+                            [nzLabel]="item.innam"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                   Bộ phận bảo dưỡng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn bộ phận bảo dưỡng" style="width: 100%;"
+                        [(ngModel)]="model.arbpl">
+                        <nz-option *ngFor="let item of lstSelectPhongBan" [nzValue]="item.depid"
+                            [nzLabel]="item.depidTxt"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input placeholder="Thiết bị" [(ngModel)]="model.equnr"/>
+                </div>
+            </div>
+
+        </div>
+        <nz-divider nzText="BẢNG DỮ LIỆU" nzOrientation="left"></nz-divider>
+        <nz-table #datatable nzShowPagination nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+            [nzData]="dtable" [nzTotal]="dtable.length" [nzPageIndex]="1" [nzPageSize]="10">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã thiết bị </th>
+                    <th>Tên thiết bị </th>
+                    <th>Khu vực chức năng</th>
+                    <th>Nhóm thiết bị</th>
+                    <th>Loại thiết bị</th>
+                    <th>Mã tài sản</th>
+                    <th>Ngày bảo trì gần nhất</th>
+                    <th>Trạng thái thiết bị</th>
+                    <th>Trạng thái hoạt động</th>
+                    <th>Ngày đưa vào SD</th>
+                    <th>Phòng ban sử dụng</th>
+                    <th>Tổ/đội sử dụng</th>
+                    <th>Người sử dụng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (d of datatable.data; track d) {
+                <tr (click)="getDetailDevice(d.equnr)">
+                    <td>{{ d.index }}</td>
+                    <td>{{ d.equnr }}</td>
+                    <td>{{ d.equtxt }}</td>
+                    <td>{{d.tplnrtxt }}</td>
+                    <td>{{ d.eqarttxt }}</td>
+                    <td>{{ d.eqtyptxt }}</td>
+                    <td>{{ d.anlnr }}</td>
+                    <td>{{d.ngaybd == '0000-00-00' ? '' : d.ngaybd }}</td>
+                    <td>{{ d.statushd }}</td>
+                    <td>{{ d.statussd }}</td>
+                    <td>{{ d.inbdt }}</td>
+                    <td>{{d.phongban }}</td>
+                    <td>{{ d.gewrktxt }}</td>
+                    <td>{{d.nhanvien }}</td>
+                </tr>
+                }
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+<nz-drawer [nzWidth]="'80%'" [nzVisible]="visibleDetail" nzPlacement="right" [nzTitle]="'CHI TIẾT THIẾT BỊ, TÀI SẢN CSVCKT'"
+    [nzExtra]="extra" (nzOnClose)="closeDetail()">
+    <ng-container *nzDrawerContent>
+        <nz-divider nzText="THÔNG TIN CHUNG" nzOrientation="left" style="margin-top: 0;"></nz-divider>
+        <div nz-row [nzGutter]="16">
+
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Mã thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.equnr" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Tên thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.equtxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Mã nhóm thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.eqart" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Tên nhóm thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.eqarttxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Mã khu vực chức năng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.tplnr" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Tên vực chức năng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.tplnrtxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Ngày đưa vào SD
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.inbdt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Mã thẻ tài sản
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.anlnr" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Số serial
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.serge" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Số model
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.model" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Trạng thái sử dụng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.statussd" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Trạng thái hoạt động
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.statushd" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Ngày bảo dưỡng gần nhất
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.ngaybd" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Ngày hiệu chuẩn gần nhất
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.ngayhc" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị bảo trì
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.gewrktxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị quản lý
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.ingrptxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị sử dụng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.phongban" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Nhà sản xuất
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.typbz" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Người sử dụng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.nhanvien" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Năm sử dụng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.namsd" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Năm sản xuất
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.namsx" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Nước sản xuất
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="equi.nuocsx" />
+                </div>
+            </div>
+        </div>
+        <nz-divider nzText="THÔNG SỐ KỸ THUẬT" nzOrientation="left"></nz-divider>
+        <nz-table #datatableTskt nzShowPagination nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+            [nzData]="dtskt" [nzTotal]="dtskt.length" [nzPageIndex]="1" [nzPageSize]="10">
+            <thead>
+                <tr>
+                    <th>Thông số</th>
+                    <th>Giá trị</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (d of datatableTskt.data; track d) {
+                <tr>
+                    <td>{{ d.smbez }}</td>
+                    <td>{{ d.ausp1 }}</td>
+                </tr>
+                }
+            </tbody>
+        </nz-table>
+    </ng-container>
+</nz-drawer>
+<ng-template #extra>
+    <button nz-button nzType="primary" (click)="closeDetail()" style="margin-right: 12px;">TẠO SỰ CỐ</button>
+    <button nz-button nzType="default" (click)="closeDetail()">ĐÓNG</button>
+    &nbsp;
+</ng-template>

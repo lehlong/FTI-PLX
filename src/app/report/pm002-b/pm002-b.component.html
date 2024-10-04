@@ -49,7 +49,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn loại thiết bị" style="width: 100%;"
-                        [(ngModel)]="model.abckz">
+                        [(ngModel)]="model.eqtyp">
                         <nz-option *ngFor="let item of lstSelectEqtyp" [nzValue]="item.value"
                             [nzLabel]="item.name"></nz-option>
                     </nz-select>
@@ -63,7 +63,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn Work center" style="width: 100%;"
-                        [(ngModel)]="model.tplnr">
+                        [(ngModel)]="model.arbpl">
                         <nz-option *ngFor="let item of lstSelectWorkCenter" [nzValue]="item.arbpl"
                             [nzLabel]="item.ktext"></nz-option>
                     </nz-select>
@@ -77,7 +77,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn nhóm thiết bị" style="width: 100%;"
-                        [(ngModel)]="model.tplnr">
+                        [(ngModel)]="model.eqart">
                         <nz-option *ngFor="let item of lstSelectObjectType" [nzValue]="item.eqart"
                             [nzLabel]="item.eartx"></nz-option>
                     </nz-select>
@@ -102,7 +102,7 @@
             <div nz-col class="gutter-row" [nzSpan]="4">
                 <div class="inner-box">
                     <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;"
-                        [(ngModel)]="model.fdate"></nz-date-picker>
+                        [(ngModel)]="model.tdate"></nz-date-picker>
                 </div>
             </div>
 
@@ -129,7 +129,7 @@
             <div nz-col class="gutter-row" [nzSpan]="4">
                 <div class="inner-box">
                     <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;"
-                        [(ngModel)]="model.fdate"></nz-date-picker>
+                        [(ngModel)]="model.sfdate"></nz-date-picker>
                 </div>
             </div>
             <div nz-col class="gutter-row" [nzSpan]="1">
@@ -140,7 +140,7 @@
             <div nz-col class="gutter-row" [nzSpan]="4">
                 <div class="inner-box">
                     <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;"
-                        [(ngModel)]="model.fdate"></nz-date-picker>
+                        [(ngModel)]="model.stdate"></nz-date-picker>
                 </div>
             </div>
 
@@ -161,7 +161,7 @@
             </div>
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
-                    <input nz-input placeholder="Thiết bị" [(ngModel)]="model.class"/>
+                    <input nz-input placeholder="Thiết bị" [(ngModel)]="model.equnr"/>
                 </div>
             </div>
             <div nz-col class="gutter-row" [nzSpan]="3">
@@ -172,7 +172,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn cấu trúc thiết bị" style="width: 100%;"
-                        [(ngModel)]="model.abckz">
+                        [(ngModel)]="model.cautructb">
                         <nz-option *ngFor="let item of lstSelectCauTrucTb" [nzValue]="item.value"
                             [nzLabel]="item.name"></nz-option>
                     </nz-select>
@@ -186,7 +186,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn ABC Indicator" style="width: 100%;"
-                        [(ngModel)]="model.abckz">
+                        [(ngModel)]="model.abcindicator">
                         <nz-option *ngFor="let item of lstSelectIndicator" [nzValue]="item.value"
                             [nzLabel]="item.name"></nz-option>
                     </nz-select>
@@ -200,7 +200,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn người sử dụng" style="width: 100%;"
-                        [(ngModel)]="model.abckz">
+                        [(ngModel)]="model.nhanvienth">
                         <nz-option *ngFor="let item of lstSelectNhanVien" [nzValue]="item.staff"
                             [nzLabel]="item.staffTxt"></nz-option>
                     </nz-select>
@@ -215,7 +215,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn phòng ban sử dụng" style="width: 100%;"
-                        [(ngModel)]="model.tplnr">
+                        [(ngModel)]="model.phongban">
                         <nz-option *ngFor="let item of lstSelectPhongBan" [nzValue]="item.depid"
                             [nzLabel]="item.depidTxt"></nz-option>
                     </nz-select>
@@ -230,7 +230,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn trạng thái thiết bị" style="width: 100%;"
-                        [(ngModel)]="model.tplnr">
+                        [(ngModel)]="model.statusThietBi">
                         <nz-option *ngFor="let item of lstSelectStatusTb" [nzValue]="item.value"
                             [nzLabel]="item.name"></nz-option>
                     </nz-select>
@@ -244,7 +244,7 @@
             <div nz-col class="gutter-row" [nzSpan]="9">
                 <div class="inner-box">
                     <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn trạng thái hoạt động" style="width: 100%;"
-                        [(ngModel)]="model.tplnr">
+                        [(ngModel)]="model.statusHoatDong">
                         <nz-option *ngFor="let item of lstSelectStatusHd" [nzValue]="item.value"
                             [nzLabel]="item.name"></nz-option>
                     </nz-select>

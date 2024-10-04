@@ -1,1 +1,742 @@
-<p>pm008 works!</p>
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="DANH SÁCH THIẾT BỊ/ TÀI SẢN CSVCKT" nzSubtitle="Xuất báo cáo"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <button nz-button nzType="default" (click)="searchData()" style="margin-right: 12px;">
+                            <span nz-icon nzType="search"></span>
+                            TÌM KIẾM
+                        </button>
+                        <button nz-button nzType="primary" (click)="exportData()">
+                            <span nz-icon nzType="download"></span>
+                            XUẤT BÁO CÁO
+                        </button>
+                    </nz-space>
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow" style="padding: 0px 24px;">
+        <nz-divider nzOrientation="left" nzText="CHỌN THAM SỐ BÁO CÁO"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Khu vực chức năng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn khu vực chức năng" style="width: 100%;"
+                        [(ngModel)]="model.funcloc">
+                        <nz-option *ngFor="let item of lstSelectFunclocList" [nzValue]="item.funcloc"
+                            [nzLabel]="item.descript"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Nhóm thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn nhóm thiết bị" style="width: 100%;"
+                        [(ngModel)]="model.object_type">
+                        <nz-option *ngFor="let item of lstSelectObjectType" [nzValue]="item.eqart"
+                            [nzLabel]="item.eartx"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị quản lý
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn đơn vị quản lý" style="width: 100%;"
+                        [(ngModel)]="model.ingpr">
+                        <nz-option *ngFor="let item of lstSelectPlaner" [nzValue]="item.ingrp"
+                            [nzLabel]="item.innam"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Bộ phận bảo dưỡng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn bộ phận bảo dưỡng" style="width: 100%;"
+                        [(ngModel)]="model.arbpl">
+                        <nz-option *ngFor="let item of lstSelectWorkCenter" [nzValue]="item.arbpl"
+                            [nzLabel]="item.ktext"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input placeholder="Thiết bị" [(ngModel)]="model.equnr" />
+                </div>
+            </div>
+
+            <nz-divider nzOrientation="left" nzText="BẢNG DỮ LIỆU"></nz-divider>
+            <nz-table #OrderListTable nzShowPagination nzShowSizeChanger
+                (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="dataTable"
+                [nzTotal]="dataTable.length" [nzPageIndex]="1" [nzPageSize]="10">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã thiết bị</th>
+                        <th>Tên thiết bị</th>
+                        <th>Khu vực chức năng</th>
+                        <th>Nhóm thiết bị</th>
+                        <th>Loại thiết bị</th>
+                        <th>Mã tài sản</th>
+                        <th>Ngày bảo trì gần nhất</th>
+                        <th>Trạng thái thiết bị</th>
+                        <th>Trạng thái hoạt động</th>
+                        <th>Ngày đưa vào SD </th>
+                        <th>Phòng ban sử dụng</th>
+                        <th>Tổ/đội sử dụng</th>
+                        <th>Người sử dụng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (data of OrderListTable.data; track data) {
+                    <tr (click)="getDetail(data)">
+                        <td>{{data.index}}</td>
+                        <td>{{data.equnr}}</td>
+                        <td>{{data.equtxt}}</td>
+                        <td>{{data.tplnrtxt}}</td>
+                        <td>{{data.eqarttxt}}</td>
+                        <td>{{data.eqtyptxt}}</td>
+                        <td>{{data.anlnr}}</td>
+                        <td></td>
+                        <td>{{data.statushd}}</td>
+                        <td>{{data.statussd}}</td>
+                        <td>{{data.inbdt | date:'dd/MM/yyyy'}}</td>
+                        <td>{{data.phongban}}</td>
+                        <td></td>
+                        <td>{{data.nhanvien}}</td>
+                        <td>
+                            <button nz-button nzType="primary"><span nz-icon nzType="printer"></span></button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </nz-table>
+
+        </div>
+    </div>
+</div>
+<!-- Detail Order -->
+<nz-drawer [nzWidth]="'80%'" [nzVisible]="visibleDetail" nzPlacement="right" [nzTitle]="'CHI TIẾT LÝ LỊCH THIẾT BỊ'"
+    [nzExtra]="extra" (nzOnClose)="closeDetail()">
+    <ng-container *nzDrawerContent>
+        <nz-divider nzText="THÔNG TIN CHUNG" nzOrientation="left" style="margin-top: 0;"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Công ty
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.bukrs" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.butxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Khu vực chức năng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.tplnr" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.pltxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.equnr" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Category
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.typtx" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Cấu trúc thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.estuc" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.estuctxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Tên thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.eqktx" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Trạng thái thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.statacttxt" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Trạng thái hoạt động
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.stattxt" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Đơn vị quản lý
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.wergw" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.werkstxt" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Phòng ban quản lý
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.ktext" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Tổ đội bảo trì, bảo dưỡng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.ktext2" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.iwerk" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Object Type
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.eqart" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.eartx" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Class
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.class" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.kltxtmain" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Equipment gốc
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.equnr2" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box"></div>
+            </div>
+        </div>
+
+
+        <nz-divider nzText="TÀI SẢN" nzOrientation="left"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Asset / Sub Asset
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="5">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.anlnr" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="5">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.anlun" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.txt50" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Class
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.anlkl" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="10">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.ktgrtx" />
+                </div>
+            </div>
+
+
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Company code gốc
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="5">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.vbund" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="15">
+                <div class="inner-box"></div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    Original asset
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="5">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.aibn1" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="5">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="dataDetail.aibn2" />
+                </div>
+            </div>
+        </div>
+
+
+        <nz-divider nzText="CÁC THÔNG SỐ" nzOrientation="left"></nz-divider>
+        <nz-tabset>
+            <nz-tab nzTitle="Thông số kỹ thuật">
+                <nz-table #tskt nzShowPagination nzShowSizeChanger
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="datatt"
+                    [nzTotal]="datatt.length" [nzPageIndex]="1" [nzPageSize]="10">
+                    <thead>
+                        <tr>
+                            <th>Mã class</th>
+                            <th>Tên class</th>
+                            <th>Mã đặc tính</th>
+                            <th>Tên đặc tính</th>
+                            <th>Giá trị</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (data of tskt.data; track data) {
+                        <tr>
+                            <td>{{data.class}}</td>
+                            <td>{{data.kltxt}}</td>
+                            <td>{{data.atnam}}</td>
+                            <td>{{data.atbez}}</td>
+                            <td>{{data.atwrt}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Điều chuyển">
+                <nz-table #dc nzShowPagination nzShowSizeChanger
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="datadc"
+                    [nzTotal]="datadc.length" [nzPageIndex]="1" [nzPageSize]="10">
+                    <thead>
+                        <tr>
+                            <th>Số quyết định</th>
+                            <th>Ngày bàn giao</th>
+                            <th>Đơn vị bàn giao</th>
+                            <th>Phòng ban bàn giao</th>
+                            <th>Người bàn giao</th>
+                            <th>Ngày nhận</th>
+                            <th>Đơn vị nhận</th>
+                            <th>Phòng ban nhận</th>
+                            <th>Người nhận</th>
+                            <th>Số lệnh giao nhận</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (data of dc.data; track data) {
+                        <tr>
+                            <td>{{data.soqd}}</td>
+                            <td>{{data.datab}}</td>
+                            <td>{{data.butxtf}}</td>
+                            <td>{{data.depidtxtf}}</td>
+                            <td>{{data.staffplf}}</td>
+                            <td>{{data.datbi}}</td>
+                            <td>{{data.butxt}}</td>
+                            <td>{{data.depidtxt}}</td>
+                            <td>{{data.staffpl}}</td>
+                            <td>{{data.ktext}}</td>
+                            <td>{{data.sogn}}</td>
+                            <td>{{data.note}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Kiểm định / hiệu chuẩn">
+                <nz-table #kdhc nzShowPagination nzShowSizeChanger
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="datakdhc"
+                    [nzTotal]="datakdhc.length" [nzPageIndex]="1" [nzPageSize]="10">
+                    <thead>
+                        <tr>
+                            <th> STT</th>
+                            <th> Mã yêu cầu</th>
+                            <th> Nội dung yêu cầu</th>
+                            <th> Mã kế hoạch</th>
+                            <th> Tên kế hoạch</th>
+                            <th> Ngày yêu cầu</th>
+                            <th> Mã loại lệnh</th>
+                            <th> Tên loại lệnh</th>
+                            <th> Mã lệnh</th>
+                            <th> Nội dung thực hiện</th>
+                            <th> Ngày hoàn thành </th>
+                            <th> Mã bộ phận thực hiện</th>
+                            <th> Tên bộ phận thực hiện</th>
+                            <th> Phòng ban quản lý</th>
+                            <th> Tên phòng ban quản lý</th>
+                            <th> Trạng thái sử dụng</th>
+                            <th> Trạng thái hoạt động</th>
+                            <th> Kết quả</th>
+                            <th> Hình thức thực hiện</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (kdhc of kdhc.data; track kdhc) {
+                        <tr>
+                            <td>{{kdhc.stt}}</td>
+                            <td>{{kdhc.qmnum}}</td>
+                            <td>{{kdhc.qmtxt}}</td>
+                            <td>{{kdhc.warpl}}</td>
+                            <td>{{kdhc.wptxt}}</td>
+                            <td>{{kdhc.erdat}}</td>
+                            <td>{{kdhc.auart}}</td>
+                            <td>{{kdhc.auarttxt}}</td>
+                            <td>{{kdhc.aufnr}}</td>
+                            <td>{{kdhc.ktext}}</td>
+                            <td>{{kdhc.gltrs}}</td>
+                            <td>{{kdhc.arbpl}}</td>
+                            <td>{{kdhc.ktextwc}}</td>
+                            <td>{{kdhc.ingpr}}</td>
+                            <td>{{kdhc.innam}}</td>
+                            <td>{{kdhc.statussd}}</td>
+                            <td>{{kdhc.statushd}}</td>
+                            <td>{{kdhc.note}}</td>
+                            <td>{{kdhc.htbtbdtxt}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Bảo trì bảo dưỡng">
+                <nz-table #btbd nzShowPagination nzShowSizeChanger
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="databtbd"
+                    [nzTotal]="databtbd.length" [nzPageIndex]="1" [nzPageSize]="10">
+                    <thead>
+                        <tr>
+                            <th> STT
+                            </th>
+                            <th> Mã yêu cầu
+                            </th>
+                            <th> Nội dung yêu cầu
+                            </th>
+                            <th> Mã kế hoạch
+                            </th>
+                            <th> Tên kế hoạch
+                            </th>
+                            <th> Ngày yêu cầu
+                            </th>
+                            <th> Mã loại lệnh
+                            </th>
+                            <th> Tên loại lệnh
+                            </th>
+                            <th> Mã lệnh
+                            </th>
+                            <th> Nội dung thực hiện
+                            </th>
+                            <th> Ngày hoàn thành
+                            </th>
+                            <th> Mã bộ phận thực hiện
+                            </th>
+                            <th> Tên bộ phận thực hiện
+                            </th>
+                            <th> Phòng ban quản lý
+                            </th>
+                            <th> Tên phòng ban quản lý
+                            </th>
+                            <th> Trạng thái sử dụng
+                            </th>
+                            <th> Trạng thái hoạt động
+                            </th>
+                            <th> Kết quả
+                            </th>
+                            <th> Hình thức thực hiện
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (btbd of btbd.data; track btbd) {
+                        <tr>
+                            <td>{{btbd.stt}}</td>
+                            <td>{{btbd.qmnum}}</td>
+                            <td>{{btbd.qmtxt}}</td>
+                            <td>{{btbd.warpl}}</td>
+                            <td>{{btbd.wptxt}}</td>
+                            <td>{{btbd.erdat}}</td>
+                            <td>{{btbd.auart}}</td>
+                            <td>{{btbd.auarttxt}}</td>
+                            <td>{{btbd.aufnr}}</td>
+                            <td>{{btbd.ktext}}</td>
+                            <td>{{btbd.gltrs}}</td>
+                            <td>{{btbd.arbpl}}</td>
+                            <td>{{btbd.ktextwc}}</td>
+                            <td>{{btbd.ingpr}}</td>
+                            <td>{{btbd.innam}}</td>
+                            <td>{{btbd.statussd}}</td>
+                            <td>{{btbd.statushd}}</td>
+                            <td>{{btbd.note}}</td>
+                            <td>{{btbd.htbtbdtxt}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Sửa chữa, nâng cấp">
+                <nz-table #scnc nzShowPagination nzShowSizeChanger
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="datanangcap"
+                    [nzTotal]="datanangcap.length" [nzPageIndex]="1" [nzPageSize]="10">
+                    <thead>
+                        <tr>
+                            <th> STT
+                            </th>
+                            <th> Mã yêu cầu
+                            </th>
+                            <th> Nội dung yêu cầu
+                            </th>
+                            <th> Mã kế hoạch
+                            </th>
+                            <th> Tên kế hoạch
+                            </th>
+                            <th> Ngày yêu cầu
+                            </th>
+                            <th> Mã loại lệnh
+                            </th>
+                            <th> Tên loại lệnh
+                            </th>
+                            <th> Mã lệnh
+                            </th>
+                            <th> Nội dung thực hiện
+                            </th>
+                            <th> Ngày hoàn thành
+                            </th>
+                            <th> Mã bộ phận thực hiện
+                            </th>
+                            <th> Tên bộ phận thực hiện
+                            </th>
+                            <th> Phòng ban quản lý
+                            </th>
+                            <th> Tên phòng ban quản lý
+                            </th>
+                            <th> Trạng thái sử dụng
+                            </th>
+                            <th> Trạng thái hoạt động
+                            </th>
+                            <th> Kết quả
+                            </th>
+                            <th> Hình thức thực hiện
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (scnc of scnc.data; track scnc) {
+                        <tr>
+                            <td>{{scnc.stt}}</td>
+                            <td>{{scnc.qmnum}}</td>
+                            <td>{{scnc.qmtxt}}</td>
+                            <td>{{scnc.warpl}}</td>
+                            <td>{{scnc.wptxt}}</td>
+                            <td>{{scnc.erdat}}</td>
+                            <td>{{scnc.auart}}</td>
+                            <td>{{scnc.auarttxt}}</td>
+                            <td>{{scnc.aufnr}}</td>
+                            <td>{{scnc.ktext}}</td>
+                            <td>{{scnc.gltrs}}</td>
+                            <td>{{scnc.arbpl}}</td>
+                            <td>{{scnc.ktextwc}}</td>
+                            <td>{{scnc.ingpr}}</td>
+                            <td>{{scnc.innam}}</td>
+                            <td>{{scnc.statussd}}</td>
+                            <td>{{scnc.statushd}}</td>
+                            <td>{{scnc.note}}</td>
+                            <td>{{scnc.htbtbdtxt}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Bộ đếm điểm đo">Content of Tab Pane 3</nz-tab>
+            <nz-tab nzTitle="Lịch sử người sử dụng">
+                <nz-table #nguoisudung nzShowPagination nzShowSizeChanger
+                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" [nzData]="datansd"
+                    [nzTotal]="datansd.length" [nzPageIndex]="1" [nzPageSize]="10">
+                    <thead>
+                        <tr>
+                            <th> Ngày sử dụng </th>
+                            <th> Phòng ban</th>
+                            <th> Tên phòng ban</th>
+                            <th> Mã tổ đội</th>
+                            <th> Tên tổ đội</th>
+                            <th> Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (nguoisudung of nguoisudung.data; track nguoisudung) {
+                        <tr>
+                            <td>{{nguoisudung.datab}}</td>
+                            <td>{{nguoisudung.depid}}</td>
+                            <td>{{nguoisudung.depidtxt}}</td>
+                            <td>{{nguoisudung.staff}}</td>
+                            <td>{{nguoisudung.stafftxt}}</td>
+                            <td>{{nguoisudung.note}}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Phòng ban quản lý">Content of Tab Pane 3</nz-tab>
+            <nz-tab nzTitle="Tài sản">Content of Tab Pane 3</nz-tab>
+            <nz-tab nzTitle="Hồ sơ">Content of Tab Pane 3</nz-tab>
+            <nz-tab nzTitle="Vật tư, chi phí">Content of Tab Pane 3</nz-tab>
+            <nz-tab nzTitle="Cấu trúc thiết bị">Content of Tab Pane 3</nz-tab>
+        </nz-tabset>
+
+
+
+    </ng-container>
+</nz-drawer>
+<ng-template #extra>
+    <button nz-button nzType="default" (click)="closeDetail()">Đóng</button>
+    &nbsp;
+</ng-template>

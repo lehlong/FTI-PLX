@@ -1,1 +1,217 @@
-<p>pm006-c works!</p>
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="LỆNH BẢO DƯỠNG/KĐHC THEO NHÓM THIẾT BỊ" nzSubtitle="Xuất báo cáo"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <button nz-button nzType="primary" (click)="exportData()">
+                            <span nz-icon nzType="download"></span>
+                            XUẤT BÁO CÁO
+                        </button>
+                    </nz-space>
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow" style="padding: 0px 24px;">
+        <nz-divider nzOrientation="left" nzText="CHỌN THAM SỐ BÁO CÁO"></nz-divider>
+        <div nz-row [nzGutter]="16">
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Planning plant
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="model.werks" [disabled]="true" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Mã lệnh
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input placeholder="Mã lệnh" [(ngModel)]="model.aufnr" />
+                </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Ngày kế hoạch
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;"
+                        [(ngModel)]="model.fgstrp"></nz-date-picker>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="1">
+                <div class="inner-box">
+                    đến
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="4">
+                <div class="inner-box">
+                    <nz-date-picker [nzPlaceHolder]="'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'" style="width: 100%;"
+                        [(ngModel)]="model.tgstrp"></nz-date-picker>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Loại lệnh (order type)
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn loại lệnh" style="width: 100%;"
+                        [(ngModel)]="model.auart">
+                        <nz-option *ngFor="let item of lstSelectAuart" [nzValue]="item.value"
+                            [nzLabel]="item.name"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Đơn vị quản lý
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn đơn vị quản lý" style="width: 100%;"
+                        [(ngModel)]="model.ingpr">
+                        <nz-option *ngFor="let item of lstSelectPlaner" [nzValue]="item.ingrp"
+                            [nzLabel]="item.innam"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Work center
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn Work center" style="width: 100%;"
+                        [(ngModel)]="model.arbpl">
+                        <nz-option *ngFor="let item of lstSelectWorkCenter" [nzValue]="item.arbpl"
+                            [nzLabel]="item.ktext"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    PMAct type
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn maintenance activity type"
+                        style="width: 100%;" [(ngModel)]="model.ilart">
+                        <nz-option *ngFor="let item of lstSelectIlart" [nzValue]="item.value"
+                            [nzLabel]="item.name"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Nhóm thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn nhóm thiết bị" style="width: 100%;"
+                        [(ngModel)]="model.eqart">
+                        <nz-option *ngFor="let item of lstSelectObjectType" [nzValue]="item.eqart"
+                            [nzLabel]="item.eartx"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Khu vực chức năng
+
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn khu vực chức năng" style="width: 100%;"
+                        [(ngModel)]="model.tplnr">
+                        <nz-option *ngFor="let item of lstSelectFunclocList" [nzValue]="item.funcloc"
+                            [nzLabel]="item.descript"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Mã kế hoạch
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <input nz-input [(ngModel)]="model.warpl" placeholder="Mã kế hoạch" />
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Người sử dụng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn người sử dụng" style="width: 100%;"
+                        [(ngModel)]="model.nhanvienth">
+                        <nz-option *ngFor="let item of lstSelectNhanVien" [nzValue]="item.staff"
+                            [nzLabel]="item.staffTxt"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Phòng ban sử dụng
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn phòng ban sử dụng" style="width: 100%;"
+                        [(ngModel)]="model.phongban">
+                        <nz-option *ngFor="let item of lstSelectPhongBan" [nzValue]="item.depid"
+                            [nzLabel]="item.depidTxt"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Trạng thái thiết bị
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn trạng thái thiết bị" style="width: 100%;"
+                        [(ngModel)]="model.statusThietBi">
+                        <nz-option *ngFor="let item of lstSelectStatusTb" [nzValue]="item.value"
+                            [nzLabel]="item.name"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="3">
+                <div class="inner-box">
+                    Trạng thái hoạt động
+                </div>
+            </div>
+            <div nz-col class="gutter-row" [nzSpan]="9">
+                <div class="inner-box">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Chọn trạng thái hoạt động" style="width: 100%;"
+                        [(ngModel)]="model.statusHoatDong">
+                        <nz-option *ngFor="let item of lstSelectStatusHd" [nzValue]="item.value"
+                            [nzLabel]="item.name"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container-list">
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon nzTitle="TASKLIST" nzSubtitle="Danh sách tác vụ"
+            class="site-page-header">
+            <nz-page-header-extra>
+                <nz-space [nzWrap]="true" class="gap-[5px]">
+                    <nz-space>
+                        <app-input-clear [(value)]="iwerk" [disabled]="true"></app-input-clear>
+                        <app-input-clear placeholder="Mã task list (tác vụ)" (enterEvent)="search()"
+                            [(value)]="keyWord"></app-input-clear>
+                        <button class="flex !items-center !border-l-0 gray-btn" nzType="default" (click)="search()"
+                            nz-button nzType="default">
+                            <span nz-icon nzType="search"></span>
+                        </button>
+                        <button class="flex !items-center !border-l-0 gray-btn" nzType="default" (click)="reset()"
+                            nz-button nzType="default">
+                            <span nz-icon nzType="redo"></span>
+                        </button>
+                    </nz-space>
+                    <!-- <button
+              (click)="exportExcel()"
+              class="!flex !items-center"
+              nz-button
+              nzType="primary"
+              nzDanger
+              [appPermission]="CURRENCY_RIGHTS.EXCEL"
+            >
+            <span nz-icon nzType="file-excel" ></span>Tải Excel
+            
+            </button> -->
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+    <div class="overflow-auto flex-grow">
+        <nz-table #dtable nzShowPagination nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+            [nzData]="dataSearch" [nzTotal]="dataSearch.length" [nzPageIndex]="1" [nzPageSize]="10">
+            <thead>
+                <tr>
+                    <th>Mã tác vụ</th>
+                    <th>Tên tác vụ</th>
+                    <th>Mã bước chính</th>
+                    <th>Mã bước phụ</th>
+                    <th>Nội dung thực hiện</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (d of dtable.data; track d) {
+                <tr>
+                    <td>{{ d.plnnr }}</td>
+                    <td>{{ d.ktext }}</td>
+                    <td>{{ d.vornr }}</td>
+                    <td>{{d.sumnr }}</td>
+                    <td>{{d.ltxa1 }}</td>
+                </tr>
+                }
+            </tbody>
+        </nz-table>
+    </div>
+</div>

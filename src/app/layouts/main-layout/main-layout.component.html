@@ -23,7 +23,7 @@
       </li>
       <li nz-submenu nzTitle="Quản lý sự cố" nzIcon="warning">
         <ul *ngFor="let item of menuType2">
-          <li nz-menu-item>{{item.name}}</li>
+          <li (click)="navigateTo(item.key)" nz-menu-item>{{item.name}}</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="CHXD tự thực hiện" nzIcon="interaction">
@@ -43,7 +43,7 @@
       </li>
       <li nz-submenu nzTitle="Quản lý chỉ số hoạt động" nzIcon="stock">
         <ul *ngFor="let item of menuType4">
-          <li nz-menu-item>{{item.name}}</li>
+          <li (click)="navigateTo(item.key)" nz-menu-item>{{item.name}}</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Báo cáo" nzIcon="file">

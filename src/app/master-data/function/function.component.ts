@@ -3,6 +3,7 @@ import { ShareModule } from '../../shared/share-module'
 import { GlobalService } from '../../services/global.service'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../environments/environment.prod'
+import { HideLoading, ShowLoading } from '../../shared/constants/loading.constants'
 @Component({
   selector: 'app-currency',
   standalone: true,
@@ -22,6 +23,8 @@ export class FunctionComponent {
       },
     ])
   }
+  __tplnr: any = localStorage.getItem('__tplnr');
+  tplnr = JSON.parse(this.__tplnr);
   keyWord: string = ''
   data: any[] = [];
   dataSearch : any[] = [];
@@ -33,14 +36,17 @@ export class FunctionComponent {
     this.getAllData();
   }
   getAllData() {
-    this.http.get(environment.baseApiUrl + '/funcloc_list/6600-6620')
+    ShowLoading()
+    this.http.get(environment.baseApiUrl + `/funcloc_list/${this.tplnr}`)
       .subscribe({
         next: (response: any) => {
           this.data = response.funcloclist.item;
           this.dataSearch = response.funcloclist.item;
+          HideLoading()
         },
         error: (error) => {
           console.error('Fail load:', error)
+          HideLoading();
         },
       })
   }
@@ -51,7 +57,9 @@ reset(){
   this.dataSearch = this.data;
   this.keyWord = ''
 }
+onCurrentPageDataChange($event: any): void {
 
+}
   // exportExcel() {
   //   return this._service
   //     .exportExcelCurrency(this.filter)

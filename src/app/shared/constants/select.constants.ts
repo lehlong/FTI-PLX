@@ -76,3 +76,30 @@ export const plantype = [
     { name: 'NO - Kế hoạch kiểm tra', value: 'NO', },
     { name: 'PM - Kế hoạch sửa chữa, BYBD', value: 'PM', },
 ];
+
+export const auart = [
+    { name: 'ZPM1 - Sửa chữa lớn, nâng cấp (theo kế hoạch)', value: 'ZPM1', },
+    { name: 'ZPM2 - Sửa chữa nhỏ (theo kế hoạch)', value: 'ZPM2', },
+    { name: 'ZPM3 - Sửa chữa lớn, nâng cấp (đột xuất)', value: 'ZPM3', },
+    { name: 'ZPM4 - Sửa chữa nhỏ (đột xuất)', value: 'ZPM4', },
+    { name: 'ZPM5 - Kiểm định/hiệu chuẩn', value: 'ZPM5', },
+    { name: 'ZPM6 - Kiểm định/hiệu chuẩn (đột xuất)', value: 'ZPM6', },
+    { name: 'ZPM7 - Bảo trì bảo dưỡng định kỳ', value: 'ZPM7', },
+];
+export const qmart = [
+    { name: 'N1 - Thông báo nhắc việc/ kế hoạch', value: 'N1', },
+    { name: 'N2 - Thông báo sự cố', value: 'N2', },
+];
+
+export const status = [
+    { name: 'E0010 - Khởi tạo', value: 'E0010', },
+    { name: 'E0012 - Phê duyệt', value: 'E0012', },
+    { name: 'E0013 - Thực hiện', value: 'E0013', },
+    { name: 'E0014 - Từ chối', value: 'E0014', },
+    { name: 'E0015 - Hoàn thành', value: 'E0015', },
+    { name: 'E0016 - Hoat động dưới công suất', value: 'E0016', },
+    { name: 'E0017 - Không đủ điều kiện hoạt động', value: 'E0017', },
+    { name: 'E0018 - Không hoạt động', value: 'E0018', },
+    { name: 'E0019 - Hoat động tốt', value: 'E0019', },
+    { name: 'E0020 - Hoạt động bình thường', value: 'E0020', },
+];

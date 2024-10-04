@@ -174,6 +174,12 @@ export class MainLayoutComponent {
     this.menuType5.forEach((item: any) => {
       item.key = 'report/' + item.key
     })
+    this.menuType2.forEach((item: any) => {
+      item.key = 'incident/' + item.key
+    })
+    this.menuType4.forEach((item: any) => {
+      item.key = 'performance/' + item.key
+    })
     this.getPlanner(this.selectedRole);
   }
   getPlanner(value: string) {

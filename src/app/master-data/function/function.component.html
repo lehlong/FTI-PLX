@@ -1,14 +1,13 @@
 <div class="container-list">
     <div class="site-page-header-ghost-wrapper">
-        <nz-page-header nzBackIcon nzTitle="Khu vực chức năng" nzSubtitle="Danh sách khu vực chức năng"
+        <nz-page-header nzBackIcon nzTitle="KHU VỰC CHỨC NĂNG" nzSubtitle="Danh sách khu vực chức năng"
             class="site-page-header">
             <nz-page-header-extra>
                 <nz-space [nzWrap]="true" class="gap-[5px]">
                     <nz-space>
                         <app-input-clear placeholder="Tìm kiếm" (enterEvent)="search()"
-                        [(value)]="keyWord"
-                            ></app-input-clear>
-                        <button  class="flex !items-center !border-l-0 gray-btn" nzType="default" (click)="search()"
+                            [(value)]="keyWord"></app-input-clear>
+                        <button class="flex !items-center !border-l-0 gray-btn" nzType="default" (click)="search()"
                             nz-button nzType="default">
                             <span nz-icon nzType="search"></span>
                         </button>
@@ -33,7 +32,8 @@
         </nz-page-header>
     </div>
     <div class="overflow-auto flex-grow">
-        <nz-table>
+        <nz-table #dtable nzShowPagination nzShowSizeChanger (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+            [nzData]="dataSearch" [nzTotal]="dataSearch.length" [nzPageIndex]="1" [nzPageSize]="10">
             <thead>
                 <tr>
                     <th>Mã khu vực chức năng</th>
@@ -43,13 +43,14 @@
                 </tr>
             </thead>
             <tbody>
-               
-                <tr *ngFor="let d of dataSearch">
+                @for (d of dtable.data; track d) {
+                <tr>
                     <td>{{ d.funcloc }}</td>
                     <td>{{ d.descript }}</td>
                     <td>{{ d.startupdate }}</td>
                     <td>{{d.txt30 }}</td>
                 </tr>
+                }
             </tbody>
         </nz-table>
     </div>
